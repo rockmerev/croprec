@@ -44,10 +44,11 @@ def yield_prediction_view(request):
 """
 def crop_recommendation(request):
     result = None
-    with open('minmaxscaler.pkl', 'rb') as f:
-            scaler = pickle.load(f)
-    with open('model.pkl', 'rb') as f:
-        model = pickle.load(f)
+    
+    with open('scaler.pkl', 'rb') as scaler_file:
+        scaler = pickle.load(scaler_file)
+    with open('best_model.pkl', 'rb') as model_file:
+        model = pickle.load(model_file)
     # with open('yield.pkl', 'rb') as f:
     #     yieldmodel = pickle.load(f)
     crop_dict = {1: "Rice", 2: "Maize", 3: "Jute", 4: "Cotton", 5: "Coconut", 6: "Papaya", 7: "Orange",
@@ -57,7 +58,6 @@ def crop_recommendation(request):
     if request.method == "POST":
         form = forms.CropForm(request.POST)
         if form.is_valid():
-            # Extract values from the form
             nitrogen = form.cleaned_data['nitrogen']
             phosphorus = form.cleaned_data['phosphorus']
             potassium = form.cleaned_data['potassium']
@@ -65,12 +65,6 @@ def crop_recommendation(request):
             humidity = form.cleaned_data['humidity']
             ph = form.cleaned_data['ph']
             rainfall = form.cleaned_data['rainfall']
-
-            # Process the input for prediction (Scaling, model prediction, etc.)
-            # Load the scaler and model (assuming they are saved as 'standscaler.pkl' and 'random_forest_model.pkl')
-            
-
-            # Scale the input data
             input_data = [[nitrogen, phosphorus, potassium, temperature, humidity, ph, rainfall]]
             scaled_data = scaler.transform(input_data)
             prediction = model.predict(scaled_data)
