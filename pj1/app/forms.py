@@ -9,7 +9,7 @@ class CropForm(forms.Form):
     ph = forms.FloatField(label="pH", required=True,max_value=14, widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter pH value'}))
     rainfall = forms.FloatField(label="Rainfall (mm)",max_value=500, required=True, widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter Rainfall in mm'}))
 
-"""class YieldPredictionForm(forms.Form):
+class YieldPredictionForm(forms.Form):
     district = forms.CharField(
         label="District Name (UPPERCASE)", 
         max_length=100, 
@@ -32,4 +32,3 @@ class CropForm(forms.Form):
         initial="Tamil Nadu", 
         widget=forms.TextInput(attrs={'class': 'form-control', 'readonly': True})
     )
-"""
